@@ -18,6 +18,7 @@
   <div class="chart">
 
   <Scatterplot points={dataProvider} points2={dataProvider2} xaxis={xaxis}  yaxis={yaxis}/>
+  
   <!-- <Scatterplot points={data.b}/>
   <Scatterplot points={data.c}/>
 	<Scatterplot points={data.d}/>  -->
@@ -32,6 +33,9 @@
 		height: calc(100% - 4em);
 		min-height: 480px;
 		max-height: 480px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 		margin: 0 auto;
 	}
   /* div {

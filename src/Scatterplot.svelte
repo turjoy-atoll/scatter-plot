@@ -17,23 +17,23 @@
 	let yRange = [];
 
 	for (let item of points.rows) {
-		maxX = item.x > maxX ? item.x : maxX;
-		maxY = item.y > maxY ? item.y : maxY;
+		maxX = item[xaxis] > maxX ? item[xaxis] : maxX;
+		maxY = item[yaxis] > maxY ? item[yaxis] : maxY;
 	}
 
-	for (let item of points2.rows) {
-		maxX = item.px > maxX ? item.px : maxX;
-		maxY = item.py > maxY ? item.py : maxY;
-	}
+	// for (let item of points2.rows) {
+	// 	maxX = item.px > maxX ? item.px : maxX;
+	// 	maxY = item.py > maxY ? item.py : maxY;
+	// }
 
-	maxX = maxX + maxX%4;
-	maxY = maxY + maxY%4;
+	// maxX = maxX + maxX%4;
+	// maxY = maxY + maxY%4;
 
-	for (let i = 0; i <= maxX; i=i+4) {
+	for (let i = 0; i <= maxX; i=i+ (maxX/4)) {
 		xRange.push(i);
 	}
 
-	for (let i = 0; i <= maxY; i=i+4) {
+	for (let i = 0; i <= maxY; i=i+(maxY/4)) {
 		yRange.push(i);
 	}
 
@@ -42,7 +42,7 @@
 	// let lGapX = maxX / 4 + 1;
 	// let lGapY = maxY / 10 
 
-	const padding = { top: 20, right: 40, bottom: 40, left: 20 };
+	const padding = { top: 20, right: 40, bottom: 40, left: 40 };
 
 	$: xScale = scaleLinear()
 		.domain([0, maxX])
@@ -84,8 +84,8 @@
 	<g class='axis y-axis'>
 		{#each yTicks as tick}
 			<g class='tick tick-{tick}' transform='translate(0, {yScale(tick)})'>
-				<line x1='{padding.left}' x2='{xScale(22)}'/>
-				<text x='{padding.left - 8}' y='+4'>{tick}</text>
+				<line x1='{padding.left}' x2='{xScale(20)}'/>
+				<text x='{padding.left - 8}' y='+4'>{parseFloat(tick).toFixed(2)}</text>
 			</g>
 		{/each}
 	</g>
@@ -94,34 +94,34 @@
 	<g class='axis x-axis'>
 		{#each xTicks as tick}
 			<g class='tick' transform='translate({xScale(tick)},0)'>
-				<line y1='{yScale(0)}' y2='{yScale(22)}'/>
-				<text y='{height - padding.bottom + 16}'>{tick}</text>
+				<line y1='{yScale(0)}' y2='{yScale(20)}'/>
+				<text y='{height - padding.bottom + 16}'>{parseFloat(tick).toFixed(2)}</text>
 			</g>
 		{/each}
 	</g>
 
 	<!-- data -->
-	
+
 
 	{#each points.rows as point}
 		<circle cx='{xScale(point[xaxis])}' cy='{yScale(point[yaxis])}' r='5' fill="#ccc"/>
 	{/each}
 
-	{#each points2.rows as point}
+	<!-- {#each points2.rows as point}
 		<circle cx='{xScale(point.px)}' cy='{yScale(point.py)}' r='5' fill="tomato"/>
-	{/each}
+	{/each} -->
 
 </svg>
 
-<div>Hello {points.rows[0].x}</div>
+<!-- <div>Hello {xRange}  jjjj {yRange} </div> -->
 <!-- <div style="display: flex;">{Object.keys(points.datasource)}</div>
 <div>{Object.keys(points.datasource.fields)}</div> -->
 
 <style>
 
 	svg {
-		width: 50%;
-		height: 50%;
+		width: 90%;
+		height: 90%;
 		float: left;
 	}
 
