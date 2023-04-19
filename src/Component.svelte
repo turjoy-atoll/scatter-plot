@@ -8,6 +8,7 @@
   export let dataProvider2;
   export let xaxis;
   export let yaxis;
+  export let title;
 
   const { styleable } = getContext("sdk")
   const component = getContext("component")
@@ -16,7 +17,7 @@
 <div use:styleable={$component.styles}>
 
   <div class="chart">
-
+    <h1>{title}</h1>
   <Scatterplot points={dataProvider} points2={dataProvider2} xaxis={xaxis}  yaxis={yaxis}/>
   
   <!-- <Scatterplot points={data.b}/>
@@ -34,6 +35,7 @@
 		min-height: 480px;
 		max-height: 480px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 		margin: 0 auto;

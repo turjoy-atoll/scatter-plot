@@ -14,6 +14,11 @@
         "key": "dataProvider",
         "required": true
       },
+      {
+        "type": "text",
+        "label": "Title for the chart",
+        "key": "title"
+      },
 
       {
         "type": "field",
