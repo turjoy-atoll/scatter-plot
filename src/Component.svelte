@@ -6,6 +6,8 @@
   // export let text
   export let dataProvider;
   export let dataProvider2;
+  export let xaxis;
+  export let yaxis;
 
   const { styleable } = getContext("sdk")
   const component = getContext("component")
@@ -15,7 +17,7 @@
 
   <div class="chart">
 
-  <Scatterplot points={dataProvider} points2={dataProvider2}/>
+  <Scatterplot points={dataProvider} points2={dataProvider2} xaxis={xaxis}  yaxis={yaxis}/>
   <!-- <Scatterplot points={data.b}/>
   <Scatterplot points={data.c}/>
 	<Scatterplot points={data.d}/>  -->

@@ -4,6 +4,8 @@
 
 	export let points;
 	export let points2;
+	export let xaxis;
+	export let yaxis;
 
 	let svg;
 	let width = 500;
@@ -101,7 +103,7 @@
 	<!-- data -->
 
 	{#each points.rows as point}
-		<circle cx='{xScale(point.x)}' cy='{yScale(point.y)}' r='5' fill="#ccc"/>
+		<circle cx='{xScale(point[xaxis])}' cy='{yScale(point[yaxis])}' r='5' fill="#ccc"/>
 	{/each}
 
 	{#each points2.rows as point}
@@ -110,7 +112,7 @@
 
 </svg>
 
-<!-- <div>Hello {points.rows[0].x}</div> -->
+<div>Hello {points.rows[0].x}</div>
 <!-- <div style="display: flex;">{Object.keys(points.datasource)}</div>
 <div>{Object.keys(points.datasource.fields)}</div> -->
 

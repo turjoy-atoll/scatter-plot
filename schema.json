@@ -19,6 +19,27 @@
         "label": "Data provider 2",
         "key": "dataProvider2",
         "required": true
+      },
+      {
+        "type": "field",
+        "label": "X axis column",
+        "key": "xaxis",
+        "required": true,
+        "defaultValue": "x"
+      },
+      {
+        "type": "field",
+        "label": "time column",
+        "key": "tm",
+        "required": true,
+        "defaultValue": "x"
+      },
+      {
+        "type": "field",
+        "label": "Y axis column",
+        "key": "yaxis",
+        "required": true,
+        "defaultValue": "y"
       }
     ]
   }
