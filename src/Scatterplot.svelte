@@ -101,6 +101,7 @@
 	</g>
 
 	<!-- data -->
+	
 
 	{#each points.rows as point}
 		<circle cx='{xScale(point[xaxis])}' cy='{yScale(point[yaxis])}' r='5' fill="#ccc"/>
