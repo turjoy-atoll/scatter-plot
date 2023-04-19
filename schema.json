@@ -1,0 +1,25 @@
+{
+  "type": "component",
+  "metadata": {},
+  "schema": {
+    "name": "scatter-plot",
+    "friendlyName": "scatter-plot",
+    "description": "An amazing Budibase component!",
+    "icon": "Text",
+
+    "settings": [
+      {
+        "type": "dataProvider",
+        "label": "Data provider",
+        "key": "dataProvider",
+        "required": true
+      },
+      {
+        "type": "dataProvider",
+        "label": "Data provider 2",
+        "key": "dataProvider2",
+        "required": true
+      }
+    ]
+  }
+}
