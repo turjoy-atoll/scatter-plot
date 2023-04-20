@@ -15,28 +15,51 @@
         "required": true
       },
       {
+        "type": "dataProvider",
+        "label": "Data provider 2",
+        "key": "dataProvider2",
+        "required": false
+      },
+      {
         "type": "text",
         "label": "Title for the chart",
         "key": "title"
       },
-
       {
-        "type": "field",
-        "label": "X axis column",
+        "type": "text",
+        "label": "X axis static",
         "key": "xaxis",
         "required": true
       },
       {
-        "type": "field",
-        "label": "time column",
-        "key": "tm",
+        "type": "text",
+        "label": "time field",
+        "key": "timeField",
+        "required": false
+      },
+      {
+        "type": "text",
+        "label": "Y axis static",
+        "key": "yaxis",
         "required": true
       },
       {
-        "type": "field",
-        "label": "Y axis column",
-        "key": "yaxis",
-        "required": true
+        "type": "text",
+        "label": "X axis dynamic",
+        "key": "xaxis2",
+        "required": false
+      },
+      {
+        "type": "text",
+        "label": "time field",
+        "key": "timeField2",
+        "required": false
+      },
+      {
+        "type": "text",
+        "label": "Y axis dynamic",
+        "key": "yaxis2",
+        "required": false
       }
     ]
   }

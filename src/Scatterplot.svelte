@@ -1,11 +1,16 @@
 <script>
 	import { onMount } from 'svelte';
 	import { scaleLinear } from 'd3-scale';
+	import chroma from 'chroma-js';
 
 	export let points;
 	export let points2;
 	export let xaxis;
 	export let yaxis;
+	export let timeField;
+	export let xaxis2;
+	export let yaxis2;
+	export let timeField2;
 
 	let svg;
 	let width = 500;
@@ -13,52 +18,76 @@
 
 	let maxX = Number.NEGATIVE_INFINITY;
 	let maxY = Number.NEGATIVE_INFINITY;
+	let minX = 0;
+	let minY = 0;
+	let tMax = new Date(points.rows[0][timeField]);
+	let tMin = new Date(points.rows[0][timeField]);
 	let xRange = [];
 	let yRange = [];
+
 
 	for (let item of points.rows) {
 		maxX = item[xaxis] > maxX ? item[xaxis] : maxX;
 		maxY = item[yaxis] > maxY ? item[yaxis] : maxY;
+		minX = item[xaxis] < minX ? item[xaxis] : minX;
+		minY = item[yaxis] < minY ? item[yaxis] : minY;
+		if (!!item[timeField]) {
+				const time = new Date(item[timeField]);
+				tMax = time > tMax ? time : tMax;
+				tMin = time < tMin ? time : tMin;
+		}
 	}
-
-	// for (let item of points2.rows) {
-	// 	maxX = item.px > maxX ? item.px : maxX;
-	// 	maxY = item.py > maxY ? item.py : maxY;
-	// }
+    let points3 = [];
+	if (!!points2.rows) {
+		for (let item of points2.rows) {
+			if (!!item[xaxis2] && !!item[xaxis2]) {
+				maxX = item[xaxis2] > maxX ? item[xaxis2] : maxX;
+				maxY = item[yaxis2] > maxY ? item[yaxis2] : maxY;
+				// minX = item[xaxis2] < minX ? item[xaxis2] : minX;
+				// minY = item[yaxis2] < minY ? item[yaxis2] : minY;
+				// const time = new Date(item[timeField2]);
+				// tMax = time > tMax ? time : tMax;
+				// tMin = time < tMin ? time : tMin;
+			}
+		}
+	}
+	
 
 	// maxX = maxX + maxX%4;
 	// maxY = maxY + maxY%4;
 
-	for (let i = 0; i <= maxX; i=i+ (maxX/4)) {
+	for (let i = minX; i <= maxX; i=i+ (maxX/4)) {
 		xRange.push(i);
 	}
 
-	for (let i = 0; i <= maxY; i=i+(maxY/4)) {
+	for (let i = minY; i <= maxY; i=i+(maxY/4)) {
 		yRange.push(i);
 	}
 
-	// let sGapX = maxX / 4 + ;
-	// let sGapY = maxX / 4 + 1;
-	// let lGapX = maxX / 4 + 1;
-	// let lGapY = maxY / 10 
+	const timeDiff = Math.abs(tMax - tMin);
+
+	const pointColor = (time) => {
+		const f = chroma.scale(['yellow', 'red', 'black']);
+		const t = new Date(time);
+		const fraction =  Math.abs(t - tMin)/timeDiff
+		return f(fraction).toString() 
+	}
 
 	const padding = { top: 20, right: 40, bottom: 40, left: 40 };
 
 	$: xScale = scaleLinear()
-		.domain([0, maxX])
+		.domain([minX, maxX])
 		.range([padding.left, width - padding.right]);
 
 	$: yScale = scaleLinear()
-		.domain([0, maxY])
+		.domain([minY, maxY])
 		.range([height - padding.bottom, padding.top]);
 
-	$: xTicks = width > 180 ?
-		xRange :
-		[0, 10, 20];
+	$: xTicks = 
+		xRange;
 
-	$: yTicks = width > 180 ?
-		yRange :
-		[0, 10, 20];
+	$: yTicks = 
+		yRange;
 
 	onMount(resize);
 
@@ -71,20 +100,19 @@
 	// 	for (let point of points.rows) {
 	// 		sets.push(<circle cx='{xScale(point.x)}' cy='{yScale(point.y)}' r='5' fill="#ccc"/>)
 	// 	}
-		
 	// }
 
 </script>
 
 <svelte:window on:resize='{resize}'/>
-
+<div class="grad"><div style="color: black;">{tMin.getSeconds()}s</div><div style="color: yellow;">{tMax.getSeconds()}s</div></div>
 <svg bind:this={svg}>
 
 	<!-- y axis -->
 	<g class='axis y-axis'>
 		{#each yTicks as tick}
 			<g class='tick tick-{tick}' transform='translate(0, {yScale(tick)})'>
-				<line x1='{padding.left}' x2='{xScale(20)}'/>
+				<line x1='{padding.left}' x2='{xScale(maxX + 10)}'/>
 				<text x='{padding.left - 8}' y='+4'>{parseFloat(tick).toFixed(2)}</text>
 			</g>
 		{/each}
@@ -94,30 +122,37 @@
 	<g class='axis x-axis'>
 		{#each xTicks as tick}
 			<g class='tick' transform='translate({xScale(tick)},0)'>
-				<line y1='{yScale(0)}' y2='{yScale(20)}'/>
+				<line y1='{yScale(minY)}' y2='{yScale(maxY + 10)}'/>
 				<text y='{height - padding.bottom + 16}'>{parseFloat(tick).toFixed(2)}</text>
 			</g>
 		{/each}
 	</g>
 
 	<!-- data -->
-
-
 	{#each points.rows as point}
-		<circle cx='{xScale(point[xaxis])}' cy='{yScale(point[yaxis])}' r='5' fill="#ccc"/>
+		<circle cx='{xScale(point[xaxis])}' cy='{yScale(point[yaxis])}' r='5' fill={pointColor(point[timeField])}/>
 	{/each}
 
-	<!-- {#each points2.rows as point}
-		<circle cx='{xScale(point.px)}' cy='{yScale(point.py)}' r='5' fill="tomato"/>
-	{/each} -->
+	{#each points2.rows as point}
+		<circle cx='{xScale(point[xaxis2])}' cy='{yScale(point[xaxis2])}' r='5' fill='#ccc'/>
+	{/each}
 
 </svg>
 
-<!-- <div>Hello {xRange}  jjjj {yRange} </div> -->
+	<!-- <div>Hello  {points2.rows.filter(item => !!item[xaxis2] && !!item[yaxis2])[0][xaxis2]}</div> -->
 <!-- <div style="display: flex;">{Object.keys(points.datasource)}</div>
 <div>{Object.keys(points.datasource.fields)}</div> -->
 
 <style>
+	.grad {
+		background: rgb(2,0,36);
+		background: linear-gradient(90deg, yellow 0%, red 50%, black 100%); 
+		height: 19px; 
+		width:40%;
+		display: flex;
+		justify-content: space-between;
+		margin: 10px;
+	}
 
 	svg {
 		width: 90%;
@@ -126,8 +161,6 @@
 	}
 
 	circle {
-		/* fill: red; */
-		fill-opacity: 0.6;
 		stroke: rgba(0,0,0,0.5);
 	}
 

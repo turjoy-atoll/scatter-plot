@@ -1,14 +1,18 @@
 <script>
   import { getContext } from "svelte"
   import Scatterplot from './Scatterplot.svelte';
-	import data from './data.js';
+	// import data from './data.js';
 
   // export let text
   export let dataProvider;
   export let dataProvider2;
+  export let title;
   export let xaxis;
   export let yaxis;
-  export let title;
+  export let timeField;
+  export let xaxis2;
+  export let yaxis2;
+  export let timeField2;
 
   const { styleable } = getContext("sdk")
   const component = getContext("component")
@@ -18,7 +22,8 @@
 
   <div class="chart">
     <h1>{title}</h1>
-  <Scatterplot points={dataProvider} points2={dataProvider2} xaxis={xaxis}  yaxis={yaxis}/>
+  <Scatterplot points={dataProvider} points2={dataProvider2} xaxis={xaxis}  yaxis={yaxis} 
+  timeField={timeField} xaxis2={xaxis2}  yaxis2={yaxis2} timeField2={timeField2}/>
   
   <!-- <Scatterplot points={data.b}/>
   <Scatterplot points={data.c}/>
