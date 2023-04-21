@@ -1,113 +1,18 @@
 {
   "a": [
     {
-      "device_id": "2097153",
-      "svr_asset_id": "ZONE1",
-      "svr_device_id": null,
-      "svr_custom_attr": {
-        "name": "zone1",
-        "exit_th": "30",
-        "rssi_th": "100",
-        "entry_th": "30"
-      },
-      "zone": "ZONE1"
-    },
-    {
-      "device_id": "2097154",
-      "svr_asset_id": "zone2",
-      "svr_device_id": "name2",
-      "svr_custom_attr": {
-        "name": "zone2",
-        "exit_th": "30",
-        "rssi_th": "100",
-        "entry_th": "30"
-      },
-      "zone": "zone2"
-    },
-    {
-      "device_id": "2097155",
-      "svr_asset_id": "ZONE3",
-      "svr_device_id": null,
-      "svr_custom_attr": {
-        "name": "zone3",
-        "exit_th": "30",
-        "rssi_th": "100",
-        "entry_th": "30"
-      },
-      "zone": "ZONE3"
-    },
-    {
-      "device_id": "2097156",
-      "svr_asset_id": "zone7",
-      "svr_device_id": null,
-      "svr_custom_attr": {
-        "name": "zone3",
-        "exit_th": "30",
-        "rssi_th": "110",
-        "entry_th": "30"
-      },
-      "zone": "zone7"
-    },
-    {
-      "device_id": "2097157",
-      "svr_asset_id": null,
-      "svr_device_id": null,
-      "svr_custom_attr": null,
-      "zone": ""
-    },
-    {
-      "device_id": "301",
-      "svr_asset_id": null,
-      "svr_device_id": null,
-      "svr_custom_attr": null,
-      "zone": "",
-      "pos_ref": "304",
-      "y": "0",
-      "x": "236"
-    },
-    {
-      "device_id": "302",
-      "svr_asset_id": null,
-      "svr_device_id": null,
-      "svr_custom_attr": null,
-      "zone": "",
-      "pos_ref": "304",
-      "x": "-36.63",
-      "y": "572.83"
-    },
-    {
-      "device_id": "303",
-      "svr_asset_id": null,
-      "svr_device_id": null,
-      "svr_custom_attr": null,
-      "zone": "",
-      "x": "255.82",
-      "pos_ref": "304",
-      "y": "579.66"
-    },
-    {
-      "device_id": "304",
-      "svr_asset_id": null,
-      "svr_device_id": null,
-      "svr_custom_attr": null,
-      "zone": "",
-      "x": "0",
-      "pos_ref": "304",
-      "y": "0"
-    },
-    {
-      "device_id": "305",
-      "svr_asset_id": null,
-      "svr_device_id": null,
-      "svr_custom_attr": null,
-      "zone": ""
-    },
-    {
-      "device_id": "b827eb509371",
-      "svr_asset_id": null,
-      "svr_device_id": "abcddev",
-      "svr_custom_attr": null,
-      "zone": ""
+      "device_id": "",
+      "relayer_id": null,
+      "last_seen": "",
+      "status": null,
+      "pos_ref": "",
+      "pos_arr": ["", ""],
+      "pos_svr_asset_id": "",
+      "svr_asset_id": "",
+      "state": null,
+      "pos_x": "",
+      "pos_y": "",
+      "svr_device_id": ""
     }
   ]
 }

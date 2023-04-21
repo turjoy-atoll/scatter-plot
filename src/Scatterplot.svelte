@@ -22,6 +22,8 @@
 	let minY = 0;
 	let tMax = new Date(points.rows[0][timeField]);
 	let tMin = new Date(points.rows[0][timeField]);
+	let t2Max = new Date(points2.rows[0][timeField2]);
+	let t2Min = new Date(points2.rows[0][timeField2]);
 	let xRange = [];
 	let yRange = [];
 
@@ -37,7 +39,7 @@
 				tMin = time < tMin ? time : tMin;
 		}
 	}
-    let points3 = [];
+
 	if (!!points2.rows) {
 		for (let item of points2.rows) {
 			if (!!item[xaxis2] && !!item[xaxis2]) {
@@ -68,6 +70,13 @@
 
 	const pointColor = (time) => {
 		const f = chroma.scale(['yellow', 'red', 'black']);
+		const t = new Date(time);
+		const fraction =  Math.abs(t - tMin)/timeDiff
+		return f(fraction).toString() 
+	}
+
+	const pointColor2 = (time) => {
+		const f = chroma.scale(['rgba(2,0,36,1)', 'rgba(9,9,121,1)', 'rgba(0,212,255,1)']);
 		const t = new Date(time);
 		const fraction =  Math.abs(t - tMin)/timeDiff
 		return f(fraction).toString() 
@@ -105,7 +114,9 @@
 </script>
 
 <svelte:window on:resize='{resize}'/>
+
 <div class="grad"><div style="color: black;">{tMin.getSeconds()}s</div><div style="color: yellow;">{tMax.getSeconds()}s</div></div>
+<div class="grad2"><div style="color: rgba(0,212,255,1);">{t2Min.getSeconds()}s</div><div style="color: rgba(2,0,36,1);">{t2Max.getSeconds()}s</div></div>
 <svg bind:this={svg}>
 
 	<!-- y axis -->
@@ -134,12 +145,12 @@
 	{/each}
 
 	{#each points2.rows as point}
-		<circle cx='{xScale(point[xaxis2])}' cy='{yScale(point[xaxis2])}' r='5' fill='#ccc'/>
+		<circle cx='{xScale(point[xaxis2])}' cy='{yScale(point[yaxis2])}' r='5' fill={pointColor2(point[timeField2])}/>
 	{/each}
 
 </svg>
 
-	<!-- <div>Hello  {points2.rows.filter(item => !!item[xaxis2] && !!item[yaxis2])[0][xaxis2]}</div> -->
+	<div>Hello  {points2.rows[0][xaxis2]} {points.rows[0][xaxis]}</div>
 <!-- <div style="display: flex;">{Object.keys(points.datasource)}</div>
 <div>{Object.keys(points.datasource.fields)}</div> -->
 
@@ -147,6 +158,15 @@
 	.grad {
 		background: rgb(2,0,36);
 		background: linear-gradient(90deg, yellow 0%, red 50%, black 100%); 
+		height: 19px; 
+		width:40%;
+		display: flex;
+		justify-content: space-between;
+		margin: 10px;
+	}
+	.grad2 {
+		background: rgb(2,0,36);
+		background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 50%, rgba(0,212,255,1) 100%); 
 		height: 19px; 
 		width:40%;
 		display: flex;
