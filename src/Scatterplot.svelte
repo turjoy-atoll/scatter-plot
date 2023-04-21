@@ -45,18 +45,16 @@
 			if (!!item[xaxis2] && !!item[xaxis2]) {
 				maxX = item[xaxis2] > maxX ? item[xaxis2] : maxX;
 				maxY = item[yaxis2] > maxY ? item[yaxis2] : maxY;
-				// minX = item[xaxis2] < minX ? item[xaxis2] : minX;
-				// minY = item[yaxis2] < minY ? item[yaxis2] : minY;
-				// const time = new Date(item[timeField2]);
-				// tMax = time > tMax ? time : tMax;
-				// tMin = time < tMin ? time : tMin;
+				minX = item[xaxis2] < minX ? item[xaxis2] : minX;
+				minY = item[yaxis2] < minY ? item[yaxis2] : minY;
+				if (!!item[timeField]) {
+				const time = new Date(item[timeField2]);
+				t2Max = time > t2Max ? time : t2Max;
+				t2Min = time < t2Min ? time : t2Min;
+		}
 			}
 		}
 	}
-	
-
-	// maxX = maxX + maxX%4;
-	// maxY = maxY + maxY%4;
 
 	for (let i = minX; i <= maxX; i=i+ (maxX/4)) {
 		xRange.push(i);
@@ -69,7 +67,11 @@
 	const timeDiff = Math.abs(tMax - tMin);
 
 	const pointColor = (time) => {
+		if (!time) {
+			return "black"
+		}
 		const f = chroma.scale(['yellow', 'red', 'black']);
+		
 		const t = new Date(time);
 		const fraction =  Math.abs(t - tMin)/timeDiff
 		return f(fraction).toString() 
@@ -77,6 +79,9 @@
 
 	const pointColor2 = (time) => {
 		const f = chroma.scale(['rgba(2,0,36,1)', 'rgba(9,9,121,1)', 'rgba(0,212,255,1)']);
+		if (!time) {
+			return "tomato"
+		}
 		const t = new Date(time);
 		const fraction =  Math.abs(t - tMin)/timeDiff
 		return f(fraction).toString() 
@@ -104,19 +109,17 @@
 		({ width, height } = svg.getBoundingClientRect());
 	}
 
-	// const sets = [];
-	// if (!!points) {
-	// 	for (let point of points.rows) {
-	// 		sets.push(<circle cx='{xScale(point.x)}' cy='{yScale(point.y)}' r='5' fill="#ccc"/>)
-	// 	}
-	// }
-
 </script>
 
 <svelte:window on:resize='{resize}'/>
+{#if !!points && !! points.rows && timeField}
+	<div class="grad"><div style="color: black;">{tMin.getSeconds()}s</div><div style="color: yellow;">{tMax.getSeconds()}s</div></div>
+{/if}
 
-<div class="grad"><div style="color: black;">{tMin.getSeconds()}s</div><div style="color: yellow;">{tMax.getSeconds()}s</div></div>
-<div class="grad2"><div style="color: rgba(0,212,255,1);">{t2Min.getSeconds()}s</div><div style="color: rgba(2,0,36,1);">{t2Max.getSeconds()}s</div></div>
+{#if !!points2 && !! points2.rows && timeField2}
+	<div class="grad2"><div style="color: rgba(0,212,255,1);">{t2Min.getSeconds()}s</div><div style="color: rgba(2,0,36,1);">{t2Max.getSeconds()}s</div></div>
+{/if}
+
 <svg bind:this={svg}>
 
 	<!-- y axis -->
@@ -144,10 +147,15 @@
 		<circle cx='{xScale(point[xaxis])}' cy='{yScale(point[yaxis])}' r='5' fill={pointColor(point[timeField])}/>
 	{/each}
 
+		
 	{#each points2.rows as point}
-		<circle cx='{xScale(point[xaxis2])}' cy='{yScale(point[yaxis2])}' r='5' fill={pointColor2(point[timeField2])}/>
+		{#if !!points2 && !! points2.rows && !!xaxis2 && !!yaxis2 && point[yaxis2] && point[xaxis2]}
+			<circle cx='{xScale(point[xaxis2])}' cy='{yScale(point[yaxis2])}' r='5' fill={pointColor2(point[timeField2])}/>
+		{/if}
 	{/each}
 
+
+	
 </svg>
 
 	<div>Hello  {points2.rows[0][xaxis2]} {points.rows[0][xaxis]}</div>
