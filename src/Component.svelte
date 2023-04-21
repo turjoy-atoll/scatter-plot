@@ -1,9 +1,6 @@
 <script>
-  import { getContext } from "svelte"
+  import { getContext } from "svelte";
   import Scatterplot from './Scatterplot.svelte';
-	// import data from './data.js';
-
-  // export let text
   export let dataProvider;
   export let dataProvider2;
   export let title;

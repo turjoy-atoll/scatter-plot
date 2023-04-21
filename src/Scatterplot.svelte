@@ -29,15 +29,19 @@
 
 
 	for (let item of points.rows) {
-		maxX = item[xaxis] > maxX ? item[xaxis] : maxX;
-		maxY = item[yaxis] > maxY ? item[yaxis] : maxY;
-		minX = item[xaxis] < minX ? item[xaxis] : minX;
-		minY = item[yaxis] < minY ? item[yaxis] : minY;
-		if (!!item[timeField]) {
+		if (!!item[xaxis] && !!item[xaxis]) {
+			maxX = item[xaxis] > maxX ? item[xaxis] : maxX;
+			maxY = item[yaxis] > maxY ? item[yaxis] : maxY;
+			minX = item[xaxis] < minX ? item[xaxis] : minX;
+			minY = item[yaxis] < minY ? item[yaxis] : minY;
+			if (!!item[timeField]) {
 				const time = new Date(item[timeField]);
 				tMax = time > tMax ? time : tMax;
 				tMin = time < tMin ? time : tMin;
 		}
+		}
+
+		
 	}
 
 	if (!!points2.rows) {
@@ -51,10 +55,15 @@
 				const time = new Date(item[timeField2]);
 				t2Max = time > t2Max ? time : t2Max;
 				t2Min = time < t2Min ? time : t2Min;
-		}
+				}
 			}
 		}
 	}
+
+	minX = parseFloat(minX);
+	minY = parseFloat(minY);
+	maxX = parseFloat(maxX);
+	maxY = parseFloat(maxY);
 
 	for (let i = minX; i <= maxX; i=i+ (maxX/4)) {
 		xRange.push(i);
@@ -71,7 +80,6 @@
 			return "black"
 		}
 		const f = chroma.scale(['yellow', 'red', 'black']);
-		
 		const t = new Date(time);
 		const fraction =  Math.abs(t - tMin)/timeDiff
 		return f(fraction).toString() 
@@ -144,13 +152,15 @@
 
 	<!-- data -->
 	{#each points.rows as point}
-		<circle cx='{xScale(point[xaxis])}' cy='{yScale(point[yaxis])}' r='5' fill={pointColor(point[timeField])}/>
+	{#if !!points && !! points.rows && !!xaxis && !!yaxis && point[yaxis] && point[xaxis]}
+		<circle cx='{xScale(parseFloat(point[xaxis]))}' cy='{yScale(parseFloat(point[yaxis]))}' r='5' fill={pointColor(point[timeField])}/>
+	{/if}
 	{/each}
 
 		
 	{#each points2.rows as point}
 		{#if !!points2 && !! points2.rows && !!xaxis2 && !!yaxis2 && point[yaxis2] && point[xaxis2]}
-			<circle cx='{xScale(point[xaxis2])}' cy='{yScale(point[yaxis2])}' r='5' fill={pointColor2(point[timeField2])}/>
+			<circle cx='{xScale(parseFloat(point[xaxis2]))}' cy='{yScale(parseFloat(point[yaxis2]))}' r='5' fill={pointColor2(point[timeField2])}/>
 		{/if}
 	{/each}
 
@@ -158,7 +168,7 @@
 	
 </svg>
 
-	<div>Hello  {points2.rows[0][xaxis2]} {points.rows[0][xaxis]}</div>
+	<!-- <div>Hello  {points2.rows[0][xaxis2]} {points.rows[0][xaxis]}</div> -->
 <!-- <div style="display: flex;">{Object.keys(points.datasource)}</div>
 <div>{Object.keys(points.datasource.fields)}</div> -->
 
