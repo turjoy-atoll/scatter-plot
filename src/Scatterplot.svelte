@@ -29,7 +29,7 @@
 
 
 	for (let item of points.rows) {
-		if (!!item[xaxis] && !!item[xaxis]) {
+		if (!!item[xaxis] && !!item[yaxis] && item[yaxis] != "" && item[xaxis] != "") {
 			maxX = item[xaxis] > maxX ? item[xaxis] : maxX;
 			maxY = item[yaxis] > maxY ? item[yaxis] : maxY;
 			minX = item[xaxis] < minX ? item[xaxis] : minX;
@@ -38,15 +38,13 @@
 				const time = new Date(item[timeField]);
 				tMax = time > tMax ? time : tMax;
 				tMin = time < tMin ? time : tMin;
+			}
 		}
-		}
-
-		
 	}
 
 	if (!!points2.rows) {
 		for (let item of points2.rows) {
-			if (!!item[xaxis2] && !!item[xaxis2]) {
+			if (!!item[xaxis2] && !!item[yaxis2] && item[yaxis2] != "" && item[xaxis2] != "") {
 				maxX = item[xaxis2] > maxX ? item[xaxis2] : maxX;
 				maxY = item[yaxis2] > maxY ? item[yaxis2] : maxY;
 				minX = item[xaxis2] < minX ? item[xaxis2] : minX;
@@ -120,11 +118,11 @@
 </script>
 
 <svelte:window on:resize='{resize}'/>
-{#if !!points && !! points.rows && timeField}
+{#if !!points && !!points.rows && timeField}
 	<div class="grad"><div style="color: black;">{tMin.getSeconds()}s</div><div style="color: yellow;">{tMax.getSeconds()}s</div></div>
 {/if}
 
-{#if !!points2 && !! points2.rows && timeField2}
+{#if !!points2 && !!points2.rows && timeField2}
 	<div class="grad2"><div style="color: rgba(0,212,255,1);">{t2Min.getSeconds()}s</div><div style="color: rgba(2,0,36,1);">{t2Max.getSeconds()}s</div></div>
 {/if}
 
@@ -152,14 +150,14 @@
 
 	<!-- data -->
 	{#each points.rows as point}
-	{#if !!points && !! points.rows && !!xaxis && !!yaxis && point[yaxis] && point[xaxis]}
+	{#if !!points && !!points.rows && !!xaxis && !!yaxis && !!point[yaxis] && !!point[xaxis]}
 		<circle cx='{xScale(parseFloat(point[xaxis]))}' cy='{yScale(parseFloat(point[yaxis]))}' r='5' fill={pointColor(point[timeField])}/>
 	{/if}
 	{/each}
 
 		
 	{#each points2.rows as point}
-		{#if !!points2 && !! points2.rows && !!xaxis2 && !!yaxis2 && point[yaxis2] && point[xaxis2]}
+		{#if !!points2 && !!points2.rows && !!xaxis2 && !!yaxis2 && !!point[yaxis2] && !!point[xaxis2]}
 			<circle cx='{xScale(parseFloat(point[xaxis2]))}' cy='{yScale(parseFloat(point[yaxis2]))}' r='5' fill={pointColor2(point[timeField2])}/>
 		{/if}
 	{/each}
