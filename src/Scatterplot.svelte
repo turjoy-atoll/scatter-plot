@@ -77,7 +77,7 @@
 
 	const pointColor = (time) => {
 		if (!time) {
-			return "black"
+			return "#ccc"
 		}
 		const f = chroma.scale(['yellow', 'red', 'black']);
 		const t = new Date(time);
