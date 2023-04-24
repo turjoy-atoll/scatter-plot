@@ -5,60 +5,79 @@
     "name": "scatter-plot",
     "friendlyName": "scatter-plot",
     "description": "An amazing Budibase component!",
-    "icon": "Text",
+    "icon": "GraphScatter",
 
     "settings": [
       {
         "type": "dataProvider",
-        "label": "Data provider",
+        "label": "Static Data provider",
         "key": "dataProvider",
         "required": true
       },
       {
         "type": "dataProvider",
-        "label": "Data provider 2",
+        "label": " Dynamic Data provider",
         "key": "dataProvider2",
         "required": false
       },
       {
         "type": "text",
-        "label": "Title for the chart",
-        "key": "title"
+        "label": "Title",
+        "key": "title",
+        "required": true
       },
       {
         "type": "text",
-        "label": "X axis static",
+        "label": "X-Axis: Static",
         "key": "xaxis",
         "required": true
       },
       {
         "type": "text",
-        "label": "time field",
+        "label": "Time: Static",
         "key": "timeField",
         "required": false
       },
       {
         "type": "text",
-        "label": "Y axis static",
+        "label": "Y-Axis: Static",
         "key": "yaxis",
         "required": true
       },
       {
         "type": "text",
-        "label": "X axis dynamic",
+        "label": "X-Axis: Dynamic",
         "key": "xaxis2",
         "required": false
       },
       {
         "type": "text",
-        "label": "time field",
+        "label": "Time: Dynamic",
         "key": "timeField2",
         "required": false
       },
       {
         "type": "text",
-        "label": "Y axis dynamic",
+        "label": "Y-Axis: Dynamic",
         "key": "yaxis2",
+        "required": false
+      },
+      {
+        "type": "number",
+        "label": "X Steps",
+        "key": "xscale",
+        "required": true
+      },
+      {
+        "type": "number",
+        "label": "Y Steps",
+        "key": "yscale",
+        "required": true
+      },
+      {
+        "type": "boolean",
+        "label": "Remove aspect ratio",
+        "key": "ar",
         "required": false
       }
     ]

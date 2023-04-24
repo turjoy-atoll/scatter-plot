@@ -10,39 +10,18 @@
   export let xaxis2;
   export let yaxis2;
   export let timeField2;
+  export let xscale;
+	export let yscale;
+  export let ar;
 
   const { styleable } = getContext("sdk")
   const component = getContext("component")
 </script>
 
 <div use:styleable={$component.styles}>
-
-  <div class="chart">
-    <h1>{title}</h1>
-  <Scatterplot points={dataProvider} points2={dataProvider2} xaxis={xaxis}  yaxis={yaxis} 
-  timeField={timeField} xaxis2={xaxis2}  yaxis2={yaxis2} timeField2={timeField2}/>
-  
-  <!-- <Scatterplot points={data.b}/>
-  <Scatterplot points={data.c}/>
-	<Scatterplot points={data.d}/>  -->
-</div>
+    {#if !!dataProvider && !!dataProvider.rows  && !!xaxis && !!yaxis}
+     <Scatterplot points={dataProvider} points2={dataProvider2} xaxis={xaxis}  yaxis={yaxis} 
+       timeField={timeField} xaxis2={xaxis2}  yaxis2={yaxis2} timeField2={timeField2} xscale={xscale} yscale={yscale} ar={ar} title={title}/>
+    {/if}
 </div>
 
-
-<style>
-	.chart {
-		width: 100%;
-		max-width: 640px;
-		height: calc(100% - 4em);
-		min-height: 480px;
-		max-height: 480px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-		margin: 0 auto;
-	}
-  /* div {
-    background: red;
-  } */
-</style>
