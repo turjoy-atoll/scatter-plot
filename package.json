@@ -6,7 +6,7 @@
   "author": {
     "name": "Atoll Solutions",
     "email": "turjoy.s@atollsolutions.com",
-    "url": "atollsolutions.com"
+    "url": "https://atollsolutions.com"
   },
   "svelte": "index.js",
   "module": "dist/plugin.min.js",
