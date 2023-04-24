@@ -1,8 +1,13 @@
 {
   "name": "scatter-plot",
-  "version": "1.0.1",
+  "version": "1.7.1",
   "description": "An amazing Budibase component!",
   "license": "MIT",
+  "author": {
+    "name": "Atoll Solutions",
+    "email": "turjoy.s@atollsolutions.com",
+    "url": "atollsolutions.com"
+  },
   "svelte": "index.js",
   "module": "dist/plugin.min.js",
   "scripts": {
