@@ -1,4 +1,3 @@
-
 export default {
   a: [
     { x: 10, y: 8.04 },
